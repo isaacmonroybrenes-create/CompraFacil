@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW VW_CATEGORIAS_PRODUCTOS AS SELECT c.id_categoria,c.nombre categoria,COUNT(p.id_producto) cantidad_productos FROM categoria c LEFT JOIN producto p ON p.id_categoria=c.id_categoria GROUP BY c.id_categoria,c.nombre;
+CREATE OR REPLACE VIEW VW_PRODUCTOS_ACTIVOS AS SELECT id_producto,nombre,precio,stock,id_categoria FROM producto WHERE estado='ACTIVO';
+CREATE OR REPLACE VIEW VW_PRODUCTOS_BAJO_STOCK AS SELECT id_producto,nombre,stock FROM producto WHERE stock < 5;
+CREATE OR REPLACE VIEW VW_CATALOGO AS SELECT p.id_producto,p.nombre producto,c.nombre categoria,p.precio,p.stock,p.estado FROM producto p JOIN categoria c ON c.id_categoria=p.id_categoria;
+CREATE OR REPLACE VIEW VW_CLIENTES_PEDIDOS AS SELECT c.id_cliente,c.nombre,c.apellidos,COUNT(p.id_pedido) cantidad_pedidos FROM cliente c LEFT JOIN pedido p ON p.id_cliente=c.id_cliente GROUP BY c.id_cliente,c.nombre,c.apellidos;
+CREATE OR REPLACE VIEW VW_PEDIDOS_CLIENTES AS SELECT p.id_pedido,p.fecha_pedido,p.estado,p.total,c.nombre,c.apellidos FROM pedido p JOIN cliente c ON c.id_cliente=p.id_cliente;
+CREATE OR REPLACE VIEW VW_PEDIDOS_PENDIENTES AS SELECT * FROM pedido WHERE estado='PENDIENTE';
+CREATE OR REPLACE VIEW VW_DETALLES_PRODUCTOS AS SELECT d.id_detalle,d.id_pedido,p.nombre producto,d.cantidad,d.precio_unitario,d.subtotal FROM detalle_pedido d JOIN producto p ON p.id_producto=d.id_producto;
+CREATE OR REPLACE VIEW VW_TOTAL_POR_PEDIDO AS SELECT p.id_pedido,NVL(SUM(d.subtotal),0) total_calculado FROM pedido p LEFT JOIN detalle_pedido d ON d.id_pedido=p.id_pedido GROUP BY p.id_pedido;
+CREATE OR REPLACE VIEW VW_VENTAS_POR_PRODUCTO AS SELECT p.id_producto,p.nombre,NVL(SUM(d.cantidad),0) unidades,NVL(SUM(d.subtotal),0) importe FROM producto p LEFT JOIN detalle_pedido d ON d.id_producto=p.id_producto GROUP BY p.id_producto,p.nombre;
