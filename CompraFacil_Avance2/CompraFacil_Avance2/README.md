@@ -22,3 +22,10 @@ Se adjuntan 11 capturas de la ejecución y verificación en Oracle y Python. Con
 
 ## Mejoras previstas para la entrega final
 Se completará la validación del CRUD en las cinco tablas y el manejo de stock (descuento, restitución y concurrencia). La integridad referencial y el recálculo de totales ya están contemplados en el diseño actual. La documentación académica incorpora un cronograma por etapas.
+
+## Desarrolladores
+
+
+- Isaac Monroy - Desarrollo principal.
+- Sebastián Jesús Chacón Calvo — Colaborador del desarrollo y documentación del proyecto.
+- José Delgado — Colaborador del desarrollo
